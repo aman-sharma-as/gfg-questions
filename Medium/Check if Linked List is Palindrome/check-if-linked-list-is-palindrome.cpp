@@ -32,8 +32,54 @@ struct Node {
 class Solution{
   public:
     //Function to check whether the list is palindrome.
+    
+    Node* getMiddle(Node* head){
+        Node* fast = head -> next;
+        Node* slow = head;
+        while(fast != NULL && fast -> next != NULL){
+            fast = fast -> next -> next;
+            slow = slow -> next;
+        }
+        return slow;
+    }
+    
+    Node* reverse(Node * head){
+        Node* curr = head;
+        Node* prev = NULL;
+        Node* forw = NULL;
+        
+        while(curr != NULL){
+            forw = curr -> next;
+            curr -> next = prev;
+            prev = curr;
+            curr = forw;
+        }
+        return prev;
+    }
+    
     bool isPalindrome(Node *head)
     {
+        
+        // Approach 2
+        Node* mid = getMiddle(head);
+        Node* temp = mid -> next;
+        
+        mid -> next = reverse(temp);
+        
+        Node* head1 = head;
+        Node* head2 = mid -> next;
+        while(head2 != NULL){
+            if(head1 -> data != head2 -> data){
+                return false;
+            }
+            head1 = head1 -> next;
+            head2 = head2 -> next;
+        }
+        
+        mid -> next = reverse(temp);
+        return true;
+        
+        /*
         // Approach 1
         Node* temp = head;
         vector<int> arr;
@@ -51,6 +97,7 @@ class Solution{
                 
         }
         return true;
+        */
     }
 };
 
