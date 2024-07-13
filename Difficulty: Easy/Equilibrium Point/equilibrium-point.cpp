@@ -9,69 +9,26 @@ class Solution {
   public:
     // Function to find equilibrium point in the array.
     // arr: input array
-    int equilibriumPoint(vector<long long> &a) {
-        // Your code here
-        // int size = arr.size();
-        // if(size == 1){
-        //     return 1;
-        // }
+    int equilibriumPoint(vector<long long> &arr) {
+        long long sum = 0;
+        int n = arr.size();
+        long leftSum = 0;
         
-        // int leftPointer = 0, rightPointer = size-1;
-        // long long sumLeft = arr[leftPointer], sumRight = arr[rightPointer];
-        
-        // while(leftPointer != rightPointer){
-        //     if(sumLeft == sumRight && leftPointer == rightPointer - 2){
-        //         return leftPointer + 2;
-        //     }
-        //     else if(sumLeft == sumRight && leftPointer == rightPointer){
-        //         return leftPointer + 1;
-        //     }
-            
-        //     else if(sumLeft < sumRight){
-        //         leftPointer++;
-        //         sumLeft += arr[leftPointer];
-        //     }
-        //     else if(sumLeft > sumRight){
-        //         rightPointer--;
-        //         sumRight += arr[rightPointer];
-        //     }
-            
-        // }
-        // return -1;
-        
-         int n=a.size();
-        int i=0,j=n-1;
-        long long sumf=a[i],sume=a[j];
-        
-        while(i!=j)
-        {
-            if(sumf==sume && i==j-2)
-           {
-               return i+2;
-           }
-           else if(sumf==sume && i==j)
-           {
-               return i+1;
-           }
-            else if(sume>sumf)
-            {
-                i++;
-                sumf=sumf+a[i];
-            }
-            else
-            {
-               j--;
-                sume=sume+a[j]; 
-            }
+        if(n == 1){
+            return 1;
         }
-
-
-        if(sumf==sume && i==j)
-           {
-               return i+1;
-           }
+        for(int i = 0; i < n; i++){
+            sum+=arr[i];
+        }
+        
+        for(int i = 0; i < n; i++){
+            sum-=arr[i];
+            if(leftSum == sum){
+                return i+1;
+            }
+            leftSum+=arr[i];
+        }
         return -1;
-    
     }
 };
 
